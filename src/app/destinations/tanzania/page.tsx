@@ -182,35 +182,43 @@ const TanzaniaPage = () => {
         <div className="absolute inset-0 w-full h-full">
           {/* Background image fallback */}
           <div className="w-full h-full "></div>
-         <div className="absolute inset-0 w-full h-full">
-                  <Image
-                    src="/image/kilimanjaro.jpg" 
-                    alt="Safari Background"
-                    fill
-                    className="object-cover brightness-[0.3]"
-                    priority
-                    sizes="100vw"
-                  />
-                </div>
+          <div className="absolute inset-0 w-full h-full">
+            <Image
+              src="/image/kilimanjaro.jpg" 
+              alt="Safari Background"
+              fill
+              className="object-cover brightness-[0.4]"
+              priority
+              sizes="100vw"
+            />
+          </div>
+          {/* Add a darker overlay for better text contrast */}
+           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
         </div>
         
         <div className="relative z-10 text-center text-white max-w-6xl px-6">
           <div className="mb-12">
-            <div className="text-6xl md:text-8xl lg:text-9xl font-serif font-bold mb-6">
+            <div className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-serif font-bold mb-6 leading-tight">
               <span className="text-orange-700">T</span>ANZANIA SAFARI
             </div>
           </div>
           
-          <p className="text-lg md:text-xl mb-12 max-w-3xl mx-auto leading-relaxed opacity-90">
+          <p className="text-base sm:text-lg md:text-xl mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed opacity-90 px-2">
             Experience the crown jewel of African safaris in Tanzania. From the Great Migration in Serengeti 
             to the wildlife paradise of Ngorongoro Crater, discover Africa&apos;s most spectacular wildlife encounters.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="bg-orange-700 hover:bg-amber-800 text-white px-10 py-4 uppercase tracking-widest font-semibold transition-all duration-300 transform hover:scale-105 shadow-xl">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center max-w-2xl mx-auto">
+            <button 
+              onClick={() => document.getElementById('offerings-section')?.scrollIntoView({ behavior: 'smooth' })}
+              className="bg-orange-700 hover:bg-amber-800 text-white px-6 sm:px-10 py-3 sm:py-4 text-sm sm:text-base uppercase tracking-wider sm:tracking-widest font-semibold transition-all duration-300 transform hover:scale-105 shadow-xl rounded-lg w-full sm:w-auto"
+            >
               START YOUR SAFARI
             </button>
-            <button className="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-10 py-4 uppercase tracking-widest font-semibold transition-all duration-300 shadow-xl">
+            <button 
+              onClick={() => document.getElementById('offerings-section')?.scrollIntoView({ behavior: 'smooth' })}
+              className="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-6 sm:px-10 py-3 sm:py-4 text-sm sm:text-base uppercase tracking-wider sm:tracking-widest font-semibold transition-all duration-300 shadow-xl rounded-lg w-full sm:w-auto"
+            >
               VIEW PACKAGES
             </button>
           </div>
@@ -218,36 +226,21 @@ const TanzaniaPage = () => {
       </section>
 
       {/* Our Offerings Section */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6">
+      <section id="offerings-section" className="py-16 sm:py-24 bg-white">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4 sm:mb-6 px-2">
               OUR SAFARI PACKAGES
             </h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {offerings.map((offering, index) => (
               <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                {/* Mobile Layout: Header first, then image, then description */}
-                <div className="md:hidden">
-                  {/* Header Section */}
-                  <div className="p-6 pb-4">
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">{offering.title}</h3>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-2xl font-bold text-amber-600">{offering.price}</span>
-                      <div className="flex items-center text-amber-600">
-                        <Star className="w-5 h-5 fill-current" />
-                        <Star className="w-5 h-5 fill-current" />
-                        <Star className="w-5 h-5 fill-current" />
-                        <Star className="w-5 h-5 fill-current" />
-                        <Star className="w-5 h-5 fill-current" />
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Image Section */}
-                  <div className="relative w-full h-64">
+                {/* Mobile Layout: Image first, then header, then description */}
+                <div className="sm:hidden">
+                  {/* Image Section - MOVED TO TOP */}
+                  <div className="relative w-full h-56">
                     <Image 
                       src={offering.image}
                       alt={offering.title}
@@ -255,18 +248,27 @@ const TanzaniaPage = () => {
                       className="object-cover"
                       sizes="100vw"
                     />
-                    <div className="absolute top-4 right-4 bg-orange-700 text-white px-3 py-1 rounded-full text-sm font-semibold z-10">
+                    <div className="absolute top-3 right-3 bg-orange-700 text-white px-2 py-1 rounded-full text-xs font-semibold z-10">
                       {offering.duration}
                     </div>
                   </div>
                   
-                  {/* Description Section */}
-                  <div className="p-6 pt-4">
-                    <p className="text-gray-600 mb-4 leading-relaxed">{offering.description}</p>
+                  {/* Header Section - MOVED BELOW IMAGE */}
+                  <div className="p-4 pb-3">
+                    <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight">{offering.title}</h3>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xl font-bold text-amber-600">{offering.price}</span>
+                      <div className="flex items-center text-amber-600">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-current" />
+                        ))}
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-600 mb-3 leading-relaxed">{offering.description}</p>
                     
                     <button 
                       onClick={() => openModal(offering)}
-                      className="w-full bg-orange-700 hover:bg-amber-700 text-white py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2"
+                      className="w-full bg-orange-700 hover:bg-amber-700 text-white py-2 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2"
                     >
                       <span>Read More</span>
                       <ArrowRight className="w-4 h-4" />
@@ -275,8 +277,8 @@ const TanzaniaPage = () => {
                 </div>
 
                 {/* Desktop Layout: Original layout */}
-                <div className="hidden md:block">
-                  <div className="relative w-full h-64">
+                <div className="hidden sm:block">
+                  <div className="relative w-full h-56 sm:h-64">
                     <Image 
                       src={offering.image}
                       alt={offering.title}
@@ -284,29 +286,27 @@ const TanzaniaPage = () => {
                       className="object-cover"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
-                    <div className="absolute top-4 right-4 bg-orange-700 text-white px-3 py-1 rounded-full text-sm font-semibold z-10">
+                    <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-orange-700 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold z-10">
                       {offering.duration}
                     </div>
                   </div>
                   
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">{offering.title}</h3>
-                    <p className="text-gray-600 mb-4 leading-relaxed">{offering.description}</p>
+                  <div className="p-4 sm:p-6">
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3 leading-tight">{offering.title}</h3>
+                    <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 leading-relaxed">{offering.description}</p>
                     
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-2xl font-bold text-amber-600">{offering.price}</span>
+                    <div className="flex items-center justify-between mb-3 sm:mb-4 flex-wrap gap-2">
+                      <span className="text-xl sm:text-2xl font-bold text-amber-600">{offering.price}</span>
                       <div className="flex items-center text-amber-600">
-                        <Star className="w-5 h-5 fill-current" />
-                        <Star className="w-5 h-5 fill-current" />
-                        <Star className="w-5 h-5 fill-current" />
-                        <Star className="w-5 h-5 fill-current" />
-                        <Star className="w-5 h-5 fill-current" />
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
+                        ))}
                       </div>
                     </div>
                     
                     <button 
                       onClick={() => openModal(offering)}
-                      className="w-full bg-orange-700 hover:bg-amber-700 text-white py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2"
+                      className="w-full bg-orange-700 hover:bg-amber-700 text-white py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base transition-all duration-300 flex items-center justify-center space-x-2"
                     >
                       <span>Read More</span>
                       <ArrowRight className="w-4 h-4" />
@@ -365,23 +365,23 @@ const TanzaniaPage = () => {
       </section>
 
       {/* Call to Action Section */}
-      <section className="py-20 bg-gradient-to-r from-amber-700 to-orange-900 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+      <section className="py-16 sm:py-20 bg-gradient-to-r from-orange-600 to-orange-800 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-black bg-opacity-30"></div>
         
-        <div className="relative z-10 container mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">
-            READY FOR YOUR TANZANIA SAFARI?
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 text-center">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-4 sm:mb-6 drop-shadow-lg">
+           READY FOR YOUR TANZANIA SAFARI?
           </h2>
-          <p className="text-xl mb-12 max-w-2xl mx-auto leading-relaxed opacity-90">
+          <p className="text-base sm:text-lg md:text-xl mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed px-2 font-medium drop-shadow-md">
             Join us for the ultimate African safari experience and witness the greatest wildlife show on Earth
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="bg-white text-amber-700 hover:bg-gray-100 px-10 py-4 uppercase tracking-widest font-semibold transition-all duration-300 transform hover:scale-105 shadow-xl">
-              BOOK SAFARI
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center max-w-2xl mx-auto">
+            <button className="bg-white text-orange-700 hover:bg-gray-100 px-6 sm:px-10 py-3 sm:py-4 text-sm sm:text-base uppercase tracking-wider sm:tracking-widest font-bold transition-all duration-300 transform hover:scale-105 shadow-2xl rounded-lg w-full sm:w-auto">
+              BOOK NOW
             </button>
-            <button className="border-2 border-white text-white hover:bg-white hover:text-amber-700 px-10 py-4 uppercase tracking-widest font-semibold transition-all duration-300 shadow-xl">
-              GET QUOTE
+            <button className="border-2 border-white bg-white/10 backdrop-blur-sm text-white hover:bg-white hover:text-orange-700 px-6 sm:px-10 py-3 sm:py-4 text-sm sm:text-base uppercase tracking-wider sm:tracking-widest font-bold transition-all duration-300 shadow-2xl rounded-lg w-full sm:w-auto">
+              CONTACT US
             </button>
           </div>
         </div>
