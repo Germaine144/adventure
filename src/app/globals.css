@@ -22,5 +22,76 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Lora, Georgia, sans-serif;
+  font-style: normal;
+  font-weight: 40;
+  font-size: 10px;
+  line-height: normal;
+  color: rgb(255, 255, 255);
+}
+
+/* Ensure all text uses Lora font */
+* {
+  font-family: Lora, Georgia, sans-serif;
+}
+
+/* 3D Flip Card Styles */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Desktop hover effect */
+.group:hover .group-hover\:rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+/* Mobile touch support - flip on tap */
+.flip-card {
+  transition: transform 0.7s ease-in-out;
+}
+
+.flip-card.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Ensure smooth transitions */
+.flip-card-inner {
+  transition: transform 0.7s ease-in-out;
+  transform-style: preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Mobile interaction hints */
+@media (max-width: 768px) {
+  .group {
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .group:active {
+    transform: scale(0.98);
+  }
+  
+  /* Subtle shadow on mobile to indicate interactivity */
+  .group {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .group:active {
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.06);
+  }
 }
