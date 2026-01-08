@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import Image from 'next/image'; // Import the Image component
+import Image from 'next/image';
 import { ArrowRight, Star, X, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Offering {
@@ -176,48 +176,59 @@ const RwandaPage = () => {
     }
   };
 
+  const scrollToOfferings = () => {
+    const offeringsSection = document.getElementById('offerings-section');
+    if (offeringsSection) {
+      offeringsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <>
-      {/* Hero Section - Enhanced Mobile Responsiveness */}
+      {/* Hero Section - Enhanced Contrast */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6">
         <div className="absolute inset-0 w-full h-full">
-          {/* Linter Warning 1: Changed <img> to Image */}
           <Image
             src="/image/journey.jpg" 
             alt="Safari Background"
             layout="fill"
             objectFit="cover"
-            className="brightness-[0.3]"
+            className="brightness-[0.4]"
           />
+          {/* Enhanced dark overlay for better text contrast */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
         </div>
         
         <div className="relative z-10 text-center text-white max-w-6xl w-full px-4 sm:px-6">
           <div className="mb-8 sm:mb-12">
-            <div className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-serif font-bold mb-4 sm:mb-6 leading-tight">
-              <span className="text-orange-700">W</span>ILDLIFE
+            <div className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] font-serif font-black mb-4 sm:mb-6 leading-[0.9] drop-shadow-2xl tracking-tight">
+              <span className="text-orange-500">W</span>ILDLIFE
               <br className="sm:hidden" />
               <span className="sm:ml-4">OBSERVATION</span>
             </div>
           </div>
           
-          <p className="text-base sm:text-lg md:text-xl mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed opacity-90 px-2">
+          <p className="text-base sm:text-lg md:text-xl mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed px-2 drop-shadow-lg text-white font-medium">
             Discover the extraordinary wildlife of Rwanda through our carefully curated safari experiences. 
-            From mountain gorillas to the Big Five, experience Africa&apos;s most incredible wildlife encounters. {/* Error Fix: Line 288 */}
+            From mountain gorillas to the Big Five, experience Africa&apos;s most incredible wildlife encounters.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center max-w-2xl mx-auto">
-            <button className="bg-orange-700 hover:bg-orange-800 text-white px-6 sm:px-10 py-3 sm:py-4 text-sm sm:text-base uppercase tracking-wider sm:tracking-widest font-semibold transition-all duration-300 transform hover:scale-105 shadow-xl rounded-lg w-full sm:w-auto">
+            <button className="bg-orange-600 hover:bg-orange-700 text-white px-6 sm:px-10 py-3 sm:py-4 text-sm sm:text-base uppercase tracking-wider sm:tracking-widest font-bold transition-all duration-300 transform hover:scale-105 shadow-2xl rounded-lg w-full sm:w-auto">
               START YOUR JOURNEY
             </button>
-            <button className="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-6 sm:px-10 py-3 sm:py-4 text-sm sm:text-base uppercase tracking-wider sm:tracking-widest font-semibold transition-all duration-300 shadow-xl rounded-lg w-full sm:w-auto">
+            <button 
+              onClick={scrollToOfferings}
+              className="border-2 border-white bg-white/10 backdrop-blur-sm text-white hover:bg-white hover:text-gray-900 px-6 sm:px-10 py-3 sm:py-4 text-sm sm:text-base uppercase tracking-wider sm:tracking-widest font-bold transition-all duration-300 shadow-2xl rounded-lg w-full sm:w-auto"
+            >
               VIEW OFFERINGS
             </button>
           </div>
         </div>
       </section>
 
-      {/* Our Offerings Section - Enhanced Mobile Grid */}
-      <section className="py-16 sm:py-24 bg-white">
+      {/* Our Offerings Section - Enhanced Card Contrast */}
+      <section id="offerings-section" className="py-16 sm:py-24 bg-gray-50 scroll-mt-16">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4 sm:mb-6 px-2">
@@ -227,86 +238,44 @@ const RwandaPage = () => {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {offerings.map((offering, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                {/* Mobile Layout: Header first, then image, then description */}
-                <div className="sm:hidden">
-                  {/* Header Section */}
-                  <div className="p-4 pb-3">
-                    <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight">{offering.title}</h3>
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xl font-bold text-orange-700">{offering.price}</span>
-                      <div className="flex items-center text-yellow-500">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="w-4 h-4 fill-current" />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Image Section */}
-                  <div className="relative w-full h-56">
-                    {/* Linter Warning 2: Changed <img> to Image */}
-                    <Image 
-                      src={offering.image}
-                      alt={offering.title}
-                      layout="fill"
-                      objectFit="cover"
-                    />
-                    <div className="absolute top-3 right-3 bg-orange-700 text-white px-2 py-1 rounded-full text-xs font-semibold z-10">
-                      {offering.duration}
-                    </div>
-                  </div>
-                  
-                  {/* Description Section */}
-                  <div className="p-4 pt-3">
-                    <p className="text-sm text-gray-600 mb-3 leading-relaxed">{offering.description}</p>
-                    
-                    <button 
-                      onClick={() => openModal(offering)}
-                      className="w-full bg-orange-700 hover:bg-orange-800 text-white py-2 rounded-lg font-semibold text-sm transition-all duration-300 flex items-center justify-center space-x-2"
-                    >
-                      <span>Read More</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
+              <div key={index} className="bg-white rounded-xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                {/* Image Section - First on all screen sizes */}
+                <div className="relative w-full h-56 sm:h-64">
+                  <Image 
+                    src={offering.image}
+                    alt={offering.title}
+                    layout="fill"
+                    objectFit="cover"
+                    className="brightness-90"
+                  />
+                  {/* Gradient overlay for better badge visibility */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
+                  <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-orange-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-bold z-10 shadow-lg">
+                    {offering.duration}
                   </div>
                 </div>
-
-                {/* Desktop Layout: Original layout */}
-                <div className="hidden sm:block">
-                  <div className="relative w-full h-56 sm:h-64">
-                    {/* Linter Warning 3: Changed <img> to Image */}
-                    <Image 
-                      src={offering.image}
-                      alt={offering.title}
-                      layout="fill"
-                      objectFit="cover"
-                    />
-                    <div className="absolute top-3 sm:top-4 right-3 sm:right-4 bg-orange-700 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold z-10">
-                      {offering.duration}
+                
+                {/* Content Section - Below image on all screen sizes */}
+                <div className="p-4 sm:p-6 bg-white">
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">{offering.title}</h3>
+                  <p className="text-sm sm:text-base text-gray-700 mb-4 sm:mb-5 leading-relaxed font-medium min-h-[4rem]">{offering.description}</p>
+                  
+                  <div className="flex items-center justify-between mb-4 sm:mb-5 flex-wrap gap-2">
+                    <span className="text-2xl sm:text-3xl font-bold text-orange-600">{offering.price}</span>
+                    <div className="flex items-center text-yellow-500">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
+                      ))}
                     </div>
                   </div>
                   
-                  <div className="p-4 sm:p-6">
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3 leading-tight">{offering.title}</h3>
-                    <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 leading-relaxed">{offering.description}</p>
-                    
-                    <div className="flex items-center justify-between mb-3 sm:mb-4 flex-wrap gap-2">
-                      <span className="text-xl sm:text-2xl font-bold text-orange-700">{offering.price}</span>
-                      <div className="flex items-center text-yellow-500">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
-                        ))}
-                      </div>
-                    </div>
-                    
                   <button 
                     onClick={() => openModal(offering)}
-                    className="w-full bg-orange-700 hover:bg-orange-800 text-white py-2 sm:py-3 rounded-lg font-semibold text-sm sm:text-base transition-all duration-300 flex items-center justify-center space-x-2"
+                    className="w-full bg-orange-600 hover:bg-orange-700 text-white py-3 sm:py-3.5 rounded-lg font-bold text-sm sm:text-base transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl"
                   >
                     <span>Read More</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
-                  </div>
                 </div>
               </div>
             ))}
@@ -314,39 +283,39 @@ const RwandaPage = () => {
         </div>
       </section>
 
-      {/* The Extraordinary Wildlife Section - Enhanced Typography */}
-      <section className="py-16 sm:py-24 bg-gray-50">
+      {/* The Extraordinary Wildlife Section */}
+      <section className="py-16 sm:py-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4 sm:mb-6 text-center px-2">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-6 sm:mb-8 text-center px-2">
               The Extraordinary Wildlife of Rwanda
             </h2>
             
-            <div className="text-base sm:text-lg text-gray-600 leading-relaxed space-y-4 sm:space-y-6">
+            <div className="text-base sm:text-lg text-gray-700 leading-relaxed space-y-5 sm:space-y-6 font-medium">
               <p>
                 Rwanda is a destination that captivates wildlife enthusiasts with its diverse ecosystems and incredible biodiversity. 
                 The country&apos;s national parks offer unparalleled opportunities to witness some of Africa&apos;s most magnificent creatures in their natural habitats.
               </p>
               
               <p>
-                In <strong>Akagera National Park</strong>, visitors can encounter the Big Five - elephants, lions, leopards, buffalo, and rhinos - 
+                In <strong className="text-gray-900">Akagera National Park</strong>, visitors can encounter the Big Five - elephants, lions, leopards, buffalo, and rhinos - 
                 roaming across vast savannas and wetlands. The park&apos;s diverse landscapes also support giraffes, zebras, antelopes, and over 500 bird species, 
                 making it a paradise for wildlife photography and observation.
               </p>
               
               <p>
-                <strong>Nyungwe Forest National Park</strong> offers a completely different experience with its ancient montane rainforest. 
+                <strong className="text-gray-900">Nyungwe Forest National Park</strong> offers a completely different experience with its ancient montane rainforest. 
                 Here, you can track chimpanzees, spot over 300 bird species, and discover 13 different primate species including the rare L&apos;Hoest&apos;s monkey. 
                 The park&apos;s canopy walkway provides a unique perspective of the forest&apos;s incredible biodiversity.
               </p>
               
               <p>
-                <strong>Volcanoes National Park</strong> is world-renowned for its mountain gorilla population, offering intimate encounters with these 
+                <strong className="text-gray-900">Volcanoes National Park</strong> is world-renowned for its mountain gorilla population, offering intimate encounters with these 
                 gentle giants. The park also protects golden monkeys and provides stunning views of the Virunga mountain range, creating an unforgettable 
                 wildlife experience that represents Rwanda&apos;s commitment to conservation.
               </p>
               
-              <p className="text-lg sm:text-xl font-semibold text-gray-800 text-center pt-4">
+              <p className="text-xl sm:text-2xl font-bold text-gray-900 text-center pt-4 sm:pt-6">
                 Rwanda&apos;s wildlife represents an incredible journey into the heart of nature&apos;s wonders.
               </p>
             </div>
@@ -354,53 +323,52 @@ const RwandaPage = () => {
         </div>
       </section>
 
-      {/* Call to Action Section - Enhanced Mobile */}
-      <section className="py-16 sm:py-20 bg-gradient-to-r from-orange-700 to-orange-900 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+      {/* Call to Action Section */}
+      <section className="py-16 sm:py-20 bg-gradient-to-r from-orange-600 to-orange-800 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-black bg-opacity-30"></div>
         
         <div className="relative z-10 container mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-4 sm:mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-4 sm:mb-6 drop-shadow-lg">
             READY FOR YOUR RWANDA ADVENTURE?
           </h2>
-          <p className="text-base sm:text-lg md:text-xl mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed opacity-90 px-2">
-            Book your wildlife safari today and experience the extraordinary beauty of Rwanda&apos;s national parks {/* Error Fix: Line 451 */}
+          <p className="text-base sm:text-lg md:text-xl mb-8 sm:mb-12 max-w-2xl mx-auto leading-relaxed px-2 font-medium drop-shadow-md">
+            Book your wildlife safari today and experience the extraordinary beauty of Rwanda&apos;s national parks
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center max-w-2xl mx-auto">
-            <button className="bg-white text-orange-700 hover:bg-gray-100 px-6 sm:px-10 py-3 sm:py-4 text-sm sm:text-base uppercase tracking-wider sm:tracking-widest font-semibold transition-all duration-300 transform hover:scale-105 shadow-xl rounded-lg w-full sm:w-auto">
+            <button className="bg-white text-orange-700 hover:bg-gray-100 px-6 sm:px-10 py-3 sm:py-4 text-sm sm:text-base uppercase tracking-wider sm:tracking-widest font-bold transition-all duration-300 transform hover:scale-105 shadow-2xl rounded-lg w-full sm:w-auto">
               BOOK NOW
             </button>
-            <button className="border-2 border-white text-white hover:bg-white hover:text-orange-700 px-6 sm:px-10 py-3 sm:py-4 text-sm sm:text-base uppercase tracking-wider sm:tracking-widest font-semibold transition-all duration-300 shadow-xl rounded-lg w-full sm:w-auto">
+            <button className="border-2 border-white bg-white/10 backdrop-blur-sm text-white hover:bg-white hover:text-orange-700 px-6 sm:px-10 py-3 sm:py-4 text-sm sm:text-base uppercase tracking-wider sm:tracking-widest font-bold transition-all duration-300 shadow-2xl rounded-lg w-full sm:w-auto">
               CONTACT US
             </button>
           </div>
         </div>
       </section>
 
-      {/* Modal - Fully Responsive */}
+      {/* Modal - Enhanced Contrast */}
       {selectedOffering && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-2 sm:p-4 overflow-y-auto">
-          {/* Linter Warning 4: Changed <img> to Image */}
+        <div className="fixed inset-0 bg-black bg-opacity-85 flex items-center justify-center z-50 p-2 sm:p-4 overflow-y-auto backdrop-blur-sm">
           <Image
             src="/image/canopy.jpg"
             alt="Modal Background"
             layout="fill"
             objectFit="cover"
-            className="opacity-20"
+            className="opacity-10"
           />
           
-          <div className="bg-white rounded-lg max-w-6xl w-full my-4 sm:my-8 overflow-hidden relative shadow-2xl z-20 max-h-[95vh] sm:max-h-[90vh]">
+          <div className="bg-white rounded-2xl max-w-6xl w-full my-4 sm:my-8 overflow-hidden relative shadow-2xl z-20 max-h-[95vh] sm:max-h-[90vh]">
             {/* Close Button */}
             <button
               onClick={closeModal}
-              className="absolute top-2 right-2 sm:top-4 sm:right-4 z-50 bg-gray-800 text-white rounded-full p-1.5 sm:p-2 hover:bg-gray-700 transition-colors"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 z-50 bg-gray-900 hover:bg-gray-800 text-white rounded-full p-2 sm:p-2.5 transition-colors shadow-lg"
             >
-              <X className="w-5 h-5 sm:w-6 sm:h-6" />
+              <X className="w-6 h-6" />
             </button>
 
             <div className="flex flex-col lg:flex-row h-full max-h-[95vh] sm:max-h-[85vh]">
-              {/* Image Slideshow - Stacked on Mobile */}
-              <div className="w-full lg:w-2/5 relative overflow-hidden h-64 sm:h-80 lg:h-auto">
+              {/* Image Slideshow */}
+              <div className="w-full lg:w-2/5 relative overflow-hidden h-64 sm:h-80 lg:h-auto bg-gray-900">
                 <div className="relative h-full">
                   <div 
                     className="flex h-full transition-transform duration-1000 ease-in-out"
@@ -408,39 +376,39 @@ const RwandaPage = () => {
                   >
                     {selectedOffering.images.map((image: string, index: number) => (
                       <div key={index} className="min-w-full h-full relative">
-                        {/* Linter Warning 5: Changed <img> to Image */}
                         <Image
                           src={image}
                           alt={`${selectedOffering.title} ${index + 1}`}
                           layout="fill"
                           objectFit="cover"
+                          className="brightness-95"
                         />
                       </div>
                     ))}
                   </div>
 
-                  {/* Navigation Arrows - Mobile Friendly */}
+                  {/* Navigation Arrows */}
                   <button
                     onClick={prevImage}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-1.5 sm:p-2 rounded-full transition-colors z-10"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-2 sm:p-2.5 rounded-full transition-colors z-10 shadow-lg"
                   >
-                    <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
                   </button>
                   <button
                     onClick={nextImage}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-1.5 sm:p-2 rounded-full transition-colors z-10"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-2 sm:p-2.5 rounded-full transition-colors z-10 shadow-lg"
                   >
-                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
                   </button>
 
                   {/* Indicators */}
-                  <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex space-x-1.5 sm:space-x-2 z-10">
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
                     {selectedOffering.images.map((_: string, index: number) => (
                       <button
                         key={index}
                         onClick={() => setCurrentImageIndex(index)}
-                        className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full transition-all duration-300 ${
-                          index === currentImageIndex ? 'bg-white scale-125' : 'bg-white/60'
+                        className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 shadow-lg ${
+                          index === currentImageIndex ? 'bg-white scale-125' : 'bg-white/50 hover:bg-white/75'
                         }`}
                       />
                     ))}
@@ -448,71 +416,65 @@ const RwandaPage = () => {
                 </div>
               </div>
 
-              {/* Content - Scrollable */}
+              {/* Content - Enhanced Typography */}
               <div className="w-full lg:w-3/5 overflow-y-auto bg-white">
-                <div className="p-4 sm:p-6 lg:p-8">
-                  <div className="mb-4 sm:mb-6">
-                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 sm:mb-3 uppercase tracking-wide leading-tight">
+                <div className="p-5 sm:p-6 lg:p-8">
+                  <div className="mb-5 sm:mb-6">
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 uppercase tracking-wide leading-tight">
                       {selectedOffering.title}
                     </h2>
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 space-y-2 sm:space-y-0 text-gray-600">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 space-y-2 sm:space-y-0 text-gray-700">
                       <div className="flex items-center space-x-2">
-                        <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-orange-700" />
-                        <span className="font-medium text-sm sm:text-base">{selectedOffering.duration}</span>
+                        <Calendar className="w-5 h-5 text-orange-600" />
+                        <span className="font-bold text-base sm:text-lg">{selectedOffering.duration}</span>
                       </div>
-                      <div className="text-2xl sm:text-3xl font-bold text-orange-700">
+                      <div className="text-3xl sm:text-4xl font-bold text-orange-600">
                         {selectedOffering.price}
                       </div>
                     </div>
                   </div>
 
-                  <div className="space-y-4 sm:space-y-6">
+                  <div className="space-y-5 sm:space-y-6">
                     <div>
-                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 sm:mb-3 uppercase tracking-wide">
+                      <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 uppercase tracking-wide">
                         Welcome to this Safari Experience
                       </h3>
-                      <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                      <p className="text-base sm:text-lg text-gray-700 leading-relaxed font-medium">
                         {selectedOffering.detailedDescription}
                       </p>
                     </div>
 
                     <div>
-                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 sm:mb-3 uppercase tracking-wide">
+                      <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 uppercase tracking-wide">
                         Tour Highlights
                       </h3>
-                      <ul className="space-y-2 sm:space-y-3">
+                      <ul className="space-y-3">
                         {selectedOffering.highlights.map((highlight: string, index: number) => (
-                          <li key={index} className="flex items-start space-x-2 sm:space-x-3">
-                            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-orange-700 rounded-full mt-2 flex-shrink-0"></div>
-                            <span className="text-sm sm:text-base text-gray-700 leading-relaxed">{highlight}</span>
+                          <li key={index} className="flex items-start space-x-3">
+                            <div className="w-2 h-2 bg-orange-600 rounded-full mt-2.5 flex-shrink-0"></div>
+                            <span className="text-base sm:text-lg text-gray-700 leading-relaxed font-medium">{highlight}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
                     <div>
-                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 sm:mb-3 uppercase tracking-wide">
-                        What&apos;s Included {/* Error Fix: Line 622 */}
+                      <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 uppercase tracking-wide">
+                        What&apos;s Included
                       </h3>
-                      <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                      <p className="text-base sm:text-lg text-gray-700 leading-relaxed font-medium">
                         {selectedOffering.included}
                       </p>
                     </div>
 
-                    {/* Book Now Button in Modal */}
-                    <div className="pt-4 border-t border-gray-200">
+                    {/* Book Now Button */}
+                    <div className="pt-5 border-t border-gray-200">
                       <a
                         href={`/booking?tab=destinations&country=rwanda&itinerary=${encodeURIComponent(selectedOffering.title)}`}
-                        className="block w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-center py-3 px-6 rounded-lg font-semibold transition-all duration-300"
+                        className="block w-full bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 text-white text-center py-4 px-6 rounded-lg font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
                       >
                         Book This Itinerary
                       </a>
-                    </div>
-
-                    <div className="pt-4 sm:pt-6 pb-2 sm:pb-4 sticky bottom-0 bg-white">
-                      {/* <button className="w-full bg-orange-700 hover:bg-orange-800 text-white py-3 sm:py-3.5 px-4 sm:px-6 rounded-md font-semibold transition-colors uppercase tracking-wide text-sm sm:text-base">
-                        Book Now
-                      </button> */}
                     </div>
                   </div>
                 </div>
