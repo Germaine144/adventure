@@ -96,7 +96,7 @@ const SafariHomepage = () => {
               minHeight: '100vh'
             }}
           >
-           <source src="/videos/wildlife11.mp4"  type="video/mp4" />
+           <source src="/videos/wildlife.mp4"  type="video/mp4" />
           </video>
           
           {/* Fallback background image */}

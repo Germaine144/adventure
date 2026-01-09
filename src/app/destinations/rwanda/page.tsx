@@ -201,7 +201,7 @@ const RwandaPage = () => {
         
         <div className="relative z-10 text-center text-white max-w-6xl w-full px-4 sm:px-6">
           <div className="mb-8 sm:mb-12">
-            <div className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[12rem] font-serif font-black mb-4 sm:mb-6 leading-[0.9] drop-shadow-2xl tracking-tight">
+            <div className="text-xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[8rem] font-serif font-black mb-4 sm:mb-6 leading-[0.9] drop-shadow-2xl tracking-tight">
               <span className="text-orange-500">W</span>ILDLIFE
               <br className="sm:hidden" />
               <span className="sm:ml-4">OBSERVATION</span>
